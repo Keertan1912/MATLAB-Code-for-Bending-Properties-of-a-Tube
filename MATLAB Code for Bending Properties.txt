@@ -1,0 +1,26 @@
+MATLAB Code for Bending Properties of a Tube
+
+c=1;
+BENDING_STRENGTH = [];
+BENDING_STIFFNESS = [];
+BENDING_ENERGY = [];
+d=[];
+while(c<20)
+    d=[d 1.27*c];
+    M = 3000*1000;
+    C = 1.27*c/2;
+    I = (pi/64)*(25.4^4 - (1.27*c)^4);
+    BENDING_STRENGTH = [BENDING_STRENGTH (M*C)/I];
+    BENDING_STIFFNESS = [BENDING_STIFFNESS M*1000/(3*205*I)];
+    BENDING_ENERGY = [BENDING_ENERGY (435^2)*I*4*64/(205*25.4^2*pi*(1.27*c)^2*1000)];
+    fprintf("Bending_Strength:%10.2f\n",BENDING_STRENGTH);
+    fprintf("Bending_Stiffness:%10.2f\n",BENDING_STIFFNESS);
+    fprintf("Bending_Energy:%10.2f\n",BENDING_ENERGY);
+    c=c+1;
+end 
+
+plot (d,BENDING_STRENGTH,'--b*',d,BENDING_STIFFNESS,'--g*',d,BENDING_ENERGY,'--r*');
+xlabel ('innerdiameter (inch)');
+ylabel ('force applied per unit area (N/mm^2)');
+title ('graph b/w innerdiameter & force applied per unit area for different properties of tube');
+legend ('BENDING_STRENGTH','BENDING_STIFFNESS','BENDING_ENERGY');
